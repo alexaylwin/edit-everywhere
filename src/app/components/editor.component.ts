@@ -4,20 +4,20 @@ import * as SimpleMde from 'simplemde';
 import { PersistService } from '../services/persist.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: '../templates/app.component.html',
-  styleUrls: ['../styles/app.component.css'],
+  selector: 'editor',
+  templateUrl: '../templates/editor.component.html',
+  styleUrls: ['../styles/editor.component.css'],
   providers: [PersistService]
 })
-export class AppComponent implements AfterViewInit{
-  title = 'app';
-  markdowntext = '';
+export class EditorComponent implements AfterViewInit{
+  private markdowntext: string = '';
   simpleMde;
 
   constructor(private persistService : PersistService) {}
 
   public ngAfterViewInit(): void {
     this.simpleMde = new SimpleMde();
+    this.simpleMde.value(this.persistService.loadText());
   }
 
   public saveText() : void {
